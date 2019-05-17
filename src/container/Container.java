@@ -18,14 +18,14 @@ public class Container<E> implements Collection<E>, ISearchableByFilter<E> {
         firstElement = null;
     }
 
-    //TODO toString(), get()
     @Override
     public int size() {
         if(firstElement == null)
             return 0;
 
         int cnt = 0;
-        for(Iterator<E> itr = this.iterator(); itr.hasNext(); itr.next(), cnt++);
+        for(Iterator<E> itr = this.iterator(); itr.hasNext(); itr.next(), cnt++){
+        }
         return cnt;
     }
 
@@ -72,12 +72,24 @@ public class Container<E> implements Collection<E>, ISearchableByFilter<E> {
         throw new UnsupportedOperationException();
     }
 
+    //TODO maybe implement reversed order
     @Override
     public boolean add(E e) {
         if(e == null)
             throw new NullPointerException();
+
         //Adds the new node at the beginning of the list
-        this.firstElement = new ContainerElement<>(e,this.firstElement);
+        //this.firstElement = new ContainerElement<>(e,this.firstElement);
+
+        if(firstElement == null) {
+            firstElement = new ContainerElement<E>(e);
+            return true;
+        }
+        IContainerElement<E> temp = firstElement;
+        while(temp.hasNextElement())
+            temp = temp.getNextElement();
+        temp.setNextElement(new ContainerElement<E>(e));
+
         return true;
     }
 
@@ -134,7 +146,15 @@ public class Container<E> implements Collection<E>, ISearchableByFilter<E> {
 
     @Override
     public boolean removeAll(Collection<?> c) {
-        return false;
+        if (c == null)
+            throw new NullPointerException();
+
+        boolean flag = false;
+        for(Object itr: c){
+            while (remove(itr))
+                flag=true;
+        }
+        return flag;
     }
 
     @Override
@@ -145,6 +165,19 @@ public class Container<E> implements Collection<E>, ISearchableByFilter<E> {
     @Override
     public void clear() {
         firstElement = null;
+    }
+
+    public E get(int index) throws IndexOutOfBoundsException{
+        if(index<0 || index>=this.size())
+            throw new IndexOutOfBoundsException();
+
+        IContainerElement<E> containerElement = firstElement;
+        int i = 0;
+        while (i<index) {
+            containerElement = containerElement.getNextElement();
+            i++;
+        }
+        return containerElement.getData();
     }
 
     @Override
@@ -160,6 +193,7 @@ public class Container<E> implements Collection<E>, ISearchableByFilter<E> {
         return out;
     }
 
+    @Override
     public String toString(){
         String out = "{";
 

@@ -27,7 +27,7 @@ public class GenericTreeNode<NODETYPE> implements ITreeNode<NODETYPE>{
 
     @Override
     public boolean isLeaf() {
-        return this.children==null;
+        return this.children.isEmpty();
     }
 
     @Override
@@ -97,16 +97,17 @@ public class GenericTreeNode<NODETYPE> implements ITreeNode<NODETYPE>{
     @Override
     public String generateConsoleView(String spacer, String preamble) {
         String out = "";
-        if(this.getChildren()==null)
-            return preamble + spacer + this.getLabel();
+        if(this.isLeaf())
+            return spacer + preamble + this.getLabel()+ "\n";
 
-        for(ITreeNode<NODETYPE> itr: children) {
+        out = out.concat(spacer+preamble+this.getLabel()+"\n");
+        for(ITreeNode<NODETYPE> itr: this.getChildren()) {
             if(itr!=null)//Should always be true, is there just in case!
             {
-                out.concat(generateConsoleView(spacer + spacer, "") + "\n");
+                out = out.concat(itr.generateConsoleView(spacer + spacer, preamble));
             }
         }
-        return out.concat(preamble + spacer + this.getLabel());
+        return out;
     }
 
     @Override
