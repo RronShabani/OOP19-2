@@ -10,7 +10,7 @@ import java.util.*;
  * Created by @author Rron Shabani - 1526907
  * on 14/05/2019
  */
-public class TEST {
+public class Application {
     public static void main(String[] args){
         /** Container
         Container<Integer> container = new Container<>();
