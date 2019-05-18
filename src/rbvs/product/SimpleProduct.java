@@ -1,5 +1,7 @@
 package rbvs.product;
 
+import java.io.Serializable;
+
 /**
  * Created by @author Rron Shabani - 1526907
  */

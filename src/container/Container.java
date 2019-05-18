@@ -72,7 +72,6 @@ public class Container<E> implements Collection<E>, ISearchableByFilter<E> {
         throw new UnsupportedOperationException();
     }
 
-    //TODO maybe implement reversed order
     @Override
     public boolean add(E e) {
         if(e == null)
