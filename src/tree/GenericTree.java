@@ -18,6 +18,10 @@ public class GenericTree<TREETYPE>
         this.root = root;
     }
 
+    public GenericTree() {
+        this.root = null;
+    }
+
     @Override
     public ITreeNode<TREETYPE> getRoot() {
         return this.root;

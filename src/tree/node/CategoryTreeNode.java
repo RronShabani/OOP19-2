@@ -29,8 +29,8 @@ public class CategoryTreeNode<NODETYPE,CATEGORY> extends GenericTreeNode<NODETYP
     }
 
     @Override
-    public ITreeNode<NODETYPE> deepCopy() {
-        ITreeNode<NODETYPE> deepCopy = new CategoryTreeNode<>(this.getCategory());
+    public CategoryTreeNode<NODETYPE,CATEGORY> deepCopy() {
+        CategoryTreeNode<NODETYPE,CATEGORY> deepCopy = new CategoryTreeNode<>(this.getCategory());
         for(ITreeNode<NODETYPE> itr: this.getChildren()){
             deepCopy.getChildren().add(itr.deepCopy());
         }

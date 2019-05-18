@@ -12,11 +12,12 @@ public class ExtendedProduct extends SimpleProduct{
 
     public ExtendedProduct(ExtendedProduct product) {
         super(product.getName(), product.getPrice());
+        this.savedState = product.savedState;
     }
 
     @Override
     public void setName(String name) {
-        savedState.setName(this.getName());
+        this.savedState = new ExtendedProduct(this);
             if (name == null)
                name = "";
 
@@ -29,7 +30,7 @@ public class ExtendedProduct extends SimpleProduct{
             throw new IllegalArgumentException("You entered a negative number!", new Throwable(String.valueOf(price)) );
         }
         if(savedState!=null)
-            savedState.setPrice(this.getPrice());
+            savedState = new ExtendedProduct(this);
         super.setPrice(price);
     }
 
